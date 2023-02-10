@@ -1,3 +1,5 @@
+import csv
+
 class Item:
 
     pay_rate = 0.8 # The pay rate after 20% discount
@@ -22,6 +24,17 @@ class Item:
     def apply_discount(self):
         self.price = self.price * self.pay_rate
 
+    @classmethod
+    def instantiate_from_csv(cls):
+        # Context management
+        with open('items.csv', 'r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+
+        for item in items:
+            print(item)
+
+
     def __repr__(self):
         # Important to maintain the same way the instances are declared
         return f"Item('{self.name}', {self.price}, {self.quantity})"
@@ -32,3 +45,5 @@ item1.calculate_total_price()
 
 item2 = Item('Laptop', 1000, 3)
 item2.pay_rate = 0.7
+
+Item.instantiate_from_csv()
