@@ -1,17 +1,18 @@
 class Item:
-    def __init__(self): #call actions instantly
-        print('I am created!')
+    def __init__(self, name: str, price: float, quantity=0): #call actions instantly
+        # Run validations to the recieved arguments
+        assert price > 0, f'Price {price} is not greater than zero!'
+        assert quantity >= 0, f'Quantity {quantity} is not greater or equal to zero!'
+        
+        # Assign to self object
+        self.name = name
+        self.price = price
+        self.quantity = quantity
 
-    def calculate_total_price(self, x, y):
-        return x * y
+    def calculate_total_price(self):
+        return self.price * self.quantity #they were already initialized
 
-item1 = Item()
-item1.name = 'Phone'
-item1.price = 100
-item1.quantity = 5
-item1.calculate_total_price(item1.price, item1.quantity)
+item1 = Item('Phone', 100)
+item1.calculate_total_price()
 
-item2 = Item()
-item2.name = 'Laptop'
-item2.price = 1000
-item2.quantity = 3
+item2 = Item('Laptop', 1000)
