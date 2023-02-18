@@ -46,4 +46,5 @@ item1.calculate_total_price()
 item2 = Item('Laptop', 1000, 3)
 item2.pay_rate = 0.7
 
+# Class methods can be accessed by the class level
 Item.instantiate_from_csv()
