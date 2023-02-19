@@ -12,12 +12,24 @@ class Item:
         assert quantity >= 0, f'Quantity {quantity} is not greater or equal to zero!'
         
         # Assign to self object
-        self.name = name
+        self.__name = name   # Now it's impossible to change the name and also access it with underscore
         self.price = price
         self.quantity = quantity
 
         # Actions to execute
         Item.all.append(self)
+
+    @property
+    # Property Decorator = Read-only Attribute
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        if len(value) > 10:
+            raise Exception("The name is too long!")
+        else:   
+            self.__name = value
 
     def calculate_total_price(self):
         return self.price * self.quantity #they were already initialized
@@ -52,8 +64,10 @@ class Item:
             return True
         else:
             return False
-
+   
     def __repr__(self):
+        
         # Important to maintain the same way the instances are declared. Good practice for documentations
         # Shows in the console in a more friendly way
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+
