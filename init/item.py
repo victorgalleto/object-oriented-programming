@@ -13,11 +13,21 @@ class Item:
         
         # Assign to self object
         self.__name = name   # Now it's impossible to change the name and also access it with underscore
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
         # Actions to execute
         Item.all.append(self)
+
+    @property
+    def price(self):
+        return self.__price
+
+    def apply_discount(self):
+        self.__price = self.__price * self.pay_rate
+
+    def apply_increment(self, increment_value):
+        self.__price = self.__price + self.__price * increment_value
 
     @property
     # Property Decorator = Read-only Attribute
@@ -32,10 +42,7 @@ class Item:
             self.__name = value
 
     def calculate_total_price(self):
-        return self.price * self.quantity #they were already initialized
-
-    def apply_discount(self):
-        self.price = self.price * self.pay_rate
+        return self.__price * self.quantity #they were already initialized
 
     @classmethod
     # Access in the Class level only
@@ -69,5 +76,22 @@ class Item:
         
         # Important to maintain the same way the instances are declared. Good practice for documentations
         # Shows in the console in a more friendly way
-        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.__price}, {self.quantity})"
 
+    def __connect(self, smpt_server):
+        pass
+
+    def __prepare_body(self):
+        return f"""
+        Hello Someone.
+        We have {self.name} {self.quantity} times.
+        Regards, Gal.
+        """
+    
+    def __send(self):
+        pass
+
+    def send_email(self):
+        self.__connect()
+        self.__prepare_body()
+        self.__send()
