@@ -6,4 +6,4 @@ class Keyboard(Item):
         # Call to super function to have access to all attributes / methods
         super().__init__(
             name, price, quantity
-        ),
+        )
